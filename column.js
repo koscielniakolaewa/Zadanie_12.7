@@ -1,3 +1,14 @@
+var baseUrl = 'https://kodilla.com/pl/bootcamp-api';
+var myHeaders = {
+  'X-Client-Id': '2409',
+  'X-Auth-Token': '913c630c8b50bb14d11bb7f5721cfd3en'
+};
+
+function Column(id, name) {
+    this.id = id;
+    this.name = name || 'No name given';
+}
+
 function Column(name) {
 	var self = this;
 	
@@ -52,24 +63,13 @@ Column.prototype = {
 	  this.element.children('ul').append(card.element);
 	},
 	deleteColumn: function() {
-	  this.element.remove();
-	}
+		    var self = this;
+		    $.ajax({
+		      url: baseUrl + '/column/' + self.id,
+		      method: 'DELETE',
+		      success: function(response){
+		        self.element.remove();
+		      }
+		    });
+		},
 };
-
-function Column(id, name) {
-    this.id = id;
-    this.name = name || 'No name given';
-}
-
- $.ajax({
-    url: baseUrl + '/card',
-    method: 'POST',
-    data: {
-    name: cardName,
-    bootcamp_kanban_column_id: self.id
-    },
-    success: function(response) {
-        var card = new Card(response.id, cardName);
-        self.createCard(card);
-    }
-});

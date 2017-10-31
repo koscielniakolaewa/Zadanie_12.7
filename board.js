@@ -1,3 +1,5 @@
+
+
 var board = {
 	name: 'Tablica Kanban',
 	createColumn: function(column) {
